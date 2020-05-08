@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  cache:
+    image: varnish:stable
+    ports:
+      - 8080:8080
+
+  geodns:
+    image: trurlmcbyte/gdnsd
+    ports:
+      - "53:53"
+      - "53:53/udp"
+
+  loadbalancer:
+    image: nginx:latest
+    ports:
+      - "18080:80"
+
+  tlstermination:
+    image: haproxy:latest
+    ports:
+      - "443:443"
